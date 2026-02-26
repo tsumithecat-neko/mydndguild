@@ -1,15 +1,16 @@
-/* --- 1. 基础容器：改为左对齐 --- */
+/* --- 1. 网页容器：确保主内容区不限制对齐 --- */
 body:has(.charsheet-container) .content {
-    max-width: 100% !important; /* 允许撑开到最左 */
+    max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
-    padding-left: 20px !important; /* 给左侧留一点呼吸空间 */
+    padding-left: 20px !important; /* 网页最左侧的间距 */
 }
 
+/* --- 2. 角色卡外层：设置为左对齐 --- */
 .charsheet-container {
     all: initial;
     display: flex !important;
-    justify-content: flex-start !important; /* 核心：向左对齐 */
+    justify-content: flex-start !important; /* 关键：左对齐 */
     width: 100% !important;
     font-family: "Georgia", serif !important;
 }
@@ -23,14 +24,13 @@ body:has(.charsheet-container) .content {
     padding: 25px !important;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
     
-    /* 核心：缩放比例及左对齐基点 */
+    /* 缩放逻辑：设置基点为左上角，确保向左对齐 */
     transform: scale(0.9);
-    transform-origin: top left; /* 缩放基点设为左上角 */
-    
-    margin-bottom: -80px;
+    transform-origin: top left;
+    margin-bottom: -80px; /* 补偿缩放造成的下方空白 */
 }
 
-/* --- 2. 顶部与属性栏 --- */
+/* --- 3. 顶部信息栏 --- */
 .charsheet-container .misc-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
@@ -44,8 +44,9 @@ body:has(.charsheet-container) .content {
     border-bottom: 1px solid #999 !important;
     height: 35px !important;
 }
-.charsheet-container .misc-item label { font-size: 10px; font-weight: bold; text-transform: uppercase; }
+.charsheet-container .misc-item label { font-size: 10px; font-weight: bold; }
 
+/* --- 4. 属性框 (经典圆圈效果) --- */
 .charsheet-container .attr-row-container {
     display: grid !important;
     grid-template-columns: repeat(6, 1fr) !important;
@@ -58,6 +59,7 @@ body:has(.charsheet-container) .content {
     text-align: center !important;
     padding: 5px 0 !important;
     position: relative !important;
+    background: white !important;
 }
 .charsheet-container .attr-box .score { font-size: 24px !important; font-weight: bold !important; }
 .charsheet-container .attr-box .modifier {
@@ -75,12 +77,12 @@ body:has(.charsheet-container) .content {
     font-weight: bold !important;
 }
 
-/* --- 3. 三栏齐平布局 --- */
+/* --- 5. 三栏齐平核心布局 --- */
 .charsheet-container .main-grid {
     display: grid !important;
     grid-template-columns: 240px 310px 240px !important; 
     gap: 15px !important;
-    align-items: stretch !important;
+    align-items: stretch !important; /* 强制所有栏高度齐平 */
 }
 
 .charsheet-container .col1, 
@@ -88,10 +90,9 @@ body:has(.charsheet-container) .content {
 .charsheet-container .col3 {
     display: flex !important;
     flex-direction: column !important;
-    height: 100% !important;
 }
 
-/* --- 4. 左侧边框与字体 --- */
+/* --- 6. 左侧：边框块与动态字体 --- */
 .charsheet-container .stat-block {
     border: 1px solid black !important;
     border-radius: 5px !important;
@@ -99,32 +100,20 @@ body:has(.charsheet-container) .content {
     margin-bottom: 12px !important;
     background: white !important;
 }
-
-.charsheet-container .skill-list {
-    flex: 1 !important;
-}
+.charsheet-container .skill-list { flex: 1 !important; } /* 填充高度 */
 
 .charsheet-container .stat-row {
     display: flex !important;
     align-items: center !important;
-    font-size: clamp(9px, 1.2cqi, 11px) !important;
+    font-size: clamp(9px, 1.2cqi, 11px) !important; /* 字体随容器微调 */
     margin-bottom: 2px !important;
-    line-height: 1.1 !important;
 }
-
-.charsheet-container .stat-block h3 {
-    font-size: 10px !important;
-    text-align: center !important;
-    border-bottom: 1px solid #eee !important;
-    margin: 0 0 5px 0 !important;
-    font-weight: bold !important;
-}
-
+.charsheet-container .stat-block h3 { font-size: 10px; text-align: center; border-bottom: 1px solid #eee; margin: 0 0 5px 0; }
 .charsheet-container .prof-dot { width: 9px; height: 9px; border: 1px solid black; border-radius: 50%; margin-right: 5px; flex-shrink: 0; }
 .charsheet-container .prof-dot.checked { background: black; }
 .charsheet-container .stat-bonus { width: 22px; text-align: center; border-bottom: 1px solid black; margin-right: 5px; font-weight: bold; flex-shrink: 0; }
 
-/* --- 5. 动态高度文本框 --- */
+/* --- 7. 中间与右侧：动态高度文本区域 --- */
 .charsheet-container .text-area {
     border: 1px solid black !important;
     border-radius: 5px !important;
@@ -132,7 +121,7 @@ body:has(.charsheet-container) .content {
     display: flex !important;
     flex-direction: column !important;
 }
-.charsheet-container .auto-height { flex: 1 !important; }
+.charsheet-container .auto-height { flex: 1 !important; } /* 动态高度 */
 .charsheet-container .text-area label {
     background: #eee !important;
     font-size: 9px !important;
@@ -154,5 +143,7 @@ body:has(.charsheet-container) .content {
 .charsheet-container .money-column { width: 40px; background: #eee; border-right: 1px solid black; text-align: center; font-size: 9px; padding-top: 10px; font-weight: bold; }
 .charsheet-container .inventory-column { flex: 1; display: flex; flex-direction: column; }
 
-/* 清除干扰 */
-.charsheet-container li::before, .charsheet-container p { display: none !important; }
+/* 彻底清除 Obsidian 默认列表干扰 */
+.charsheet-container li::before, 
+.charsheet-container p, 
+.charsheet-container br { display: none !important; }
