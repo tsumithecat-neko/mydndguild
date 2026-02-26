@@ -1,106 +1,163 @@
-/* D&D 官方风格 - 线上环境深度适配版 */
-
-/* 强制修正 Digital Garden 容器干扰 */
+/* 仅影响角色卡容器及其内部元素 */
 .charsheet-container {
-  width: 100%;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex;
-  justify-content: center;
-  background-color: transparent;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 20px 0 !important;
+    all: initial; /* 阻断外部大部分继承 */
+    font-family: "Georgia", serif !important;
 }
 
-.charsheet {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 880px; /* 限制最大宽度 */
-  min-width: 820px; /* 锁定最小宽度，防止挤压变形 */
-  background-color: white !important;
-  border: 2px solid #000 !important;
-  padding: 15px;
-  font-family: "Georgia", serif;
-  color: black !important;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  /* 确保不受主题字体颜色影响 */
+.charsheet-container .charsheet {
+    box-sizing: border-box !important;
+    width: 860px !important;
+    background-color: white !important;
+    border: 2px solid #000 !important;
+    padding: 20px !important;
+    color: black !important;
+    display: block !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
 }
 
-/* 头部六项信息 */
-.misc-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 15px;
-}
-.misc-item {
-  display: flex;
-  flex-direction: column-reverse;
-  border-bottom: 1px solid #ccc;
-  font-size: 11px;
-  line-height: 1.4;
-}
-.misc-item label { font-size: 10px; font-weight: bold; color: #666; }
-
-/* 属性横向排列 - 核心对齐 */
-.attr-row-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-  margin-bottom: 30px;
-}
-.attr-box {
-  border: 1px solid black;
-  border-radius: 10px;
-  text-align: center;
-  padding: 5px 2px;
-  background: white;
-}
-.attr-box label { font-size: 10px; font-weight: bold; display: block; background: #eee; border-bottom: 1px solid black; margin: -5px -2px 5px -2px; border-radius: 8px 8px 0 0; }
-.attr-box .score { font-size: 22px; font-weight: bold; }
-.attr-box .modifier { 
-  border: 1px solid black; border-radius: 12px; width: 34px; 
-  margin: 5px auto -15px auto; background: white; font-size: 13px; font-weight: bold;
+/* 顶部六项信息栏 */
+.charsheet-container .misc-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    border: 1px solid black !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    margin-bottom: 15px !important;
 }
 
-/* 主体三栏强制锁定比例 */
-.main-grid {
-  display: grid;
-  grid-template-columns: 240px 1fr 240px; /* 使用固定+自适应+固定 */
-  gap: 15px;
-  align-items: start;
+.charsheet-container .misc-item {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    border-bottom: 1px solid #ccc !important;
+    height: 35px !important;
 }
 
-/* 战斗方块 AC/先攻/速度 */
-.combat-header {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 10px;
+.charsheet-container .misc-item label { 
+    font-size: 10px !important; 
+    font-weight: bold !important; 
+    color: #666 !important; 
 }
-.combat-box {
-  border: 2px solid black !important;
-  background: white;
-  text-align: center;
-  height: 75px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 6px;
+
+/* 属性栏横排 (职业框下方) */
+.charsheet-container .attr-row-container {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 30px !important;
 }
-.combat-box strong { font-size: 20px; }
 
-/* 技能行样式 */
-.stat-row { display: flex; align-items: center; height: 19px; font-size: 10px; }
-.prof-dot { width: 9px; height: 9px; border: 1px solid black; border-radius: 50%; margin-right: 5px; flex-shrink: 0; background: white; }
-.prof-dot.checked { background: black !important; }
-.stat-bonus { width: 22px; text-align: center; border-bottom: 1px solid #999; margin-right: 5px; font-weight: bold; }
+.charsheet-container .attr-box {
+    border: 1px solid black !important;
+    border-radius: 10px !important;
+    text-align: center !important;
+    background: white !important;
+    padding: 5px !important;
+}
 
-/* 文本区块与背包 */
-.text-area { border: 1px solid black; margin-top: 10px; }
-.text-area label { background: #eee; font-size: 9px; font-weight: bold; display: block; text-align: center; padding: 2px; border-bottom: 1px solid black; }
-.text-content { padding: 5px; font-size: 11px; line-height: 1.3; min-height: 40px; }
+.charsheet-container .attr-box label { 
+    font-size: 10px !important; 
+    font-weight: bold !important; 
+    background: #eee !important; 
+    border-bottom: 1px solid black !important;
+    margin: -5px -5px 5px -5px !important; 
+    border-radius: 8px 8px 0 0 !important;
+}
 
-/* 彻底去除列表点干扰 */
-.charsheet * { list-style: none !important; text-indent: 0 !important; }
+.charsheet-container .attr-box .score { 
+    font-size: 24px !important; 
+    font-weight: bold !important; 
+}
+
+.charsheet-container .attr-box .modifier { 
+    border: 1px solid black !important; 
+    border-radius: 12px !important; 
+    width: 36px !important; 
+    margin: 5px auto -16px auto !important; 
+    background: white !important; 
+    font-size: 14px !important; 
+    font-weight: bold !important;
+}
+
+/* 主体三栏锁定 */
+.charsheet-container .main-grid {
+    display: grid !important;
+    grid-template-columns: 250px 1fr 250px !important;
+    gap: 15px !important;
+}
+
+/* 技能与豁免行 */
+.charsheet-container .stat-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: 20px !important;
+    font-size: 11px !important;
+}
+
+.charsheet-container .prof-dot { 
+    width: 10px !important; 
+    height: 10px !important; 
+    border: 1px solid black !important; 
+    border-radius: 50% !important; 
+    margin-right: 6px !important; 
+}
+
+.charsheet-container .prof-dot.checked { 
+    background: black !important; 
+}
+
+.charsheet-container .stat-bonus { 
+    width: 25px !important; 
+    text-align: center !important; 
+    border-bottom: 1px solid #999 !important; 
+    margin-right: 8px !important; 
+    font-weight: bold !important; 
+}
+
+/* 战斗数值 AC/先攻/速度 */
+.charsheet-container .combat-header {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+}
+
+.charsheet-container .combat-box {
+    border: 2px solid black !important;
+    text-align: center !important;
+    height: 80px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    border-radius: 6px !important;
+}
+
+/* 文本与功能区域 */
+.charsheet-container .text-area { 
+    border: 1px solid black !important; 
+    margin-top: 10px !important; 
+}
+
+.charsheet-container .text-area label { 
+    background: #eee !important; 
+    font-weight: bold !important; 
+    text-align: center !important; 
+    border-bottom: 1px solid black !important; 
+}
+
+.charsheet-container .text-content { 
+    padding: 6px !important; 
+    font-size: 11px !important; 
+    line-height: 1.4 !important; 
+}
+
+/* 强制清除 Digital Garden 的列表干扰 */
+.charsheet-container li::before, 
+.charsheet-container li::after {
+    content: none !important;
+    display: none !important;
+}
