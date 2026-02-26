@@ -1,75 +1,185 @@
-/* 补充缺失的内部布局样式 */
+/* 1. 强制撑开 Digital Garden 容器 */
+body:has(.charsheet-container) .content {
+    max-width: 950px !important; 
+    width: 95vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 
-/* 豁免检定和技能行的对齐 */
+/* 2. 基础容器与重置 */
+.charsheet-container {
+    all: initial; 
+    display: flex !important;
+    justify-content: center !important;
+    padding: 20px 0 !important;
+    font-family: "Georgia", "Times New Roman", serif !important;
+    background-color: #eee !important; /* 模拟外层背景 */
+}
+
+.charsheet-container .charsheet {
+    box-sizing: border-box !important;
+    width: 860px !important;
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+    padding: 30px !important;
+    color: black !important;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2) !important;
+}
+
+/* 3. 头部信息栏 */
+.charsheet-container .misc-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 15px !important;
+    margin-bottom: 25px !important;
+    border-bottom: 2px solid black !important;
+    padding-bottom: 15px !important;
+}
+
+.charsheet-container .misc-item {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    border-bottom: 1px solid #999 !important;
+}
+
+.charsheet-container .misc-item label {
+    font-size: 10px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    margin-top: 2px !important;
+}
+
+/* 4. 属性栏 (核心修改) */
+.charsheet-container .attr-row-container {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 30px !important;
+}
+
+.charsheet-container .attr-box {
+    border: 2px solid black !important;
+    border-radius: 10px !important;
+    width: 80px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 5px 0 !important;
+    background: white !important;
+}
+
+.charsheet-container .attr-box label {
+    font-size: 10px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+}
+
+.charsheet-container .attr-box .score {
+    font-size: 26px !important;
+    font-weight: bold !important;
+    margin: 5px 0 !important;
+}
+
+.charsheet-container .attr-box .modifier {
+    border: 1px solid black !important;
+    border-radius: 50% !important;
+    width: 35px !important;
+    height: 24px !important;
+    line-height: 22px !important;
+    margin: 0 auto !important;
+    font-weight: bold !important;
+    background: #fdfdfd !important;
+    position: relative !important;
+    top: 5px !important; /* 模拟悬浮在底部的效果 */
+}
+
+/* 5. 主体三栏布局 */
+.charsheet-container .main-grid {
+    display: grid !important;
+    grid-template-columns: 240px 1fr 240px !important;
+    gap: 20px !important;
+}
+
+/* 6. 技能与豁免列表 (对齐关键) */
 .charsheet-container .stat-row {
     display: flex !important;
     align-items: center !important;
+    margin-bottom: 4px !important;
     font-size: 12px !important;
-    margin-bottom: 2px !important;
-    line-height: 1.2 !important;
 }
 
 .charsheet-container .prof-dot {
     width: 10px !important;
     height: 10px !important;
-    border: 1px solid #000 !important;
+    border: 1px solid black !important;
     border-radius: 50% !important;
-    margin-right: 5px !important;
+    margin-right: 8px !important;
     flex-shrink: 0 !important;
 }
 
 .charsheet-container .prof-dot.checked {
-    background-color: #000 !important;
+    background: black !important;
 }
 
 .charsheet-container .stat-bonus {
-    width: 25px !important;
-    text-decoration: underline !important;
-    margin-right: 5px !important;
+    width: 28px !important;
     text-align: center !important;
+    border-bottom: 1px solid black !important;
+    margin-right: 8px !important;
+    font-weight: bold !important;
 }
 
-/* 文本框区域（性格、理想等）的统一样式 */
+/* 7. 战斗框 (AC, 先攻, 速度) */
+.charsheet-container .combat-header {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+}
+
+.charsheet-container .combat-box {
+    border: 2px solid black !important;
+    border-radius: 8px !important;
+    text-align: center !important;
+    height: 70px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.charsheet-container .combat-box label {
+    font-size: 9px !important;
+    font-weight: bold !important;
+}
+
+.charsheet-container .combat-box strong {
+    font-size: 24px !important;
+}
+
+/* 8. 文本区域容器 (性格, 理想等) */
 .charsheet-container .text-area {
     border: 1px solid black !important;
     border-radius: 5px !important;
     margin-bottom: 10px !important;
-    display: flex !important;
-    flex-direction: column !important;
+    overflow: hidden !important;
 }
 
 .charsheet-container .text-area label {
+    display: block !important;
+    background: #eee !important;
     font-size: 10px !important;
     font-weight: bold !important;
     text-align: center !important;
-    background: #eee !important;
-    border-bottom: 1px solid black !important;
     padding: 2px 0 !important;
+    border-bottom: 1px solid black !important;
 }
 
 .charsheet-container .text-content {
-    padding: 5px !important;
+    padding: 8px !important;
     font-size: 13px !important;
+    line-height: 1.4 !important;
     min-height: 40px !important;
 }
 
-/* 修正属性值框内部对齐 */
-.charsheet-container .attr-box label {
-    font-size: 10px !important;
-    font-weight: bold !important;
-    display: block !important;
-    margin-top: 5px !important;
-}
-
-.charsheet-container .attr-box .score {
-    font-size: 20px !important;
-    font-weight: bold !important;
-}
-
-.charsheet-container .attr-box .modifier {
-    border: 1px solid #000 !important;
-    border-radius: 50% !important;
-    width: 30px !important;
-    margin: 0 auto 5px auto !important;
-    background: white !important;
+/* 清除默认列表样式 */
+.charsheet-container li::before {
+    content: none !important;
 }
