@@ -1,184 +1,113 @@
-/* 1. 强制扩展网页容器宽度，为缩放提供空间 */
+/* 强制扩展内容容器 */
 body:has(.charsheet-container) .content {
     max-width: 1000px !important; 
     width: 95vw !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 10px !important;
+    margin: 0 auto !important;
 }
 
-/* 2. 角色卡外层容器：处理缩放与居中 */
+/* 角色卡整体缩放逻辑 */
 .charsheet-container {
-    all: initial; 
+    all: initial;
     display: flex !important;
     justify-content: center !important;
-    align-items: flex-start !important;
     width: 100% !important;
-    background-color: transparent !important;
-    font-family: "Georgia", "Times New Roman", serif !important;
-    overflow: visible !important;
+    font-family: "Georgia", serif !important;
 }
 
-/* 3. 角色卡主体：使用 scale 进行整体缩小 */
 .charsheet-container .charsheet {
     box-sizing: border-box !important;
-    width: 860px !important; /* 锁定逻辑宽度，防止布局重排 */
+    width: 860px !important;
     min-width: 860px !important;
-    background-color: white !important;
-    border: 1px solid #ccc !important;
-    padding: 25px !important;
-    color: black !important;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15) !important;
-    
-    /* 核心缩放代码：根据需要调整 0.8 (80%) 这个数值 */
-    transform: scale(0.85); 
+    background: white !important;
+    border: 1px solid #000 !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    /* 缩小 15% 以放入网页，基点设在顶部中心 */
+    transform: scale(0.85);
     transform-origin: top center;
-    /* 补偿缩放后的高度占位（数值越负，下方留白越少） */
-    margin-bottom: -120px; 
+    margin-bottom: -120px; /* 补偿缩放造成的下方留白 */
 }
 
-/* 4. 头部六项网格 */
+/* 头部信息 */
 .charsheet-container .misc-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 15px !important;
+    gap: 10px !important;
     margin-bottom: 20px !important;
     border-bottom: 2px solid black !important;
-    padding-bottom: 10px !important;
 }
-
 .charsheet-container .misc-item {
     display: flex !important;
     flex-direction: column-reverse !important;
-    border-bottom: 1px solid #999 !important;
+    border-bottom: 1px solid #ccc !important;
     height: 35px !important;
 }
+.charsheet-container .misc-item label { font-size: 10px; font-weight: bold; text-transform: uppercase; }
 
-.charsheet-container .misc-item label {
-    font-size: 10px !important;
-    font-weight: bold !important;
-    text-transform: uppercase !important;
-}
-
-/* 5. 属性栏：经典圆圈效果 */
+/* 属性框圆圈效果 */
 .charsheet-container .attr-row-container {
     display: grid !important;
     grid-template-columns: repeat(6, 1fr) !important;
     gap: 10px !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 35px !important;
 }
-
 .charsheet-container .attr-box {
     border: 2px solid black !important;
     border-radius: 10px !important;
     text-align: center !important;
-    background: white !important;
     padding: 5px 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
+    position: relative !important;
 }
-
-.charsheet-container .attr-box .score {
-    font-size: 24px !important;
-    font-weight: bold !important;
-}
-
+.charsheet-container .attr-box .score { font-size: 24px !important; font-weight: bold !important; }
 .charsheet-container .attr-box .modifier {
     border: 1px solid black !important;
     border-radius: 50% !important;
     width: 32px !important;
     height: 22px !important;
     line-height: 20px !important;
-    margin: 5px auto -15px auto !important; /* 悬浮效果 */
+    margin: 0 auto !important;
     background: white !important;
+    position: absolute !important;
+    bottom: -12px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     font-weight: bold !important;
-    z-index: 2 !important;
 }
 
-/* 6. 主体三栏网格：锁定宽度防止中间栏掉落 */
+/* 主体三栏：强制锁定宽度不掉落 */
 .charsheet-container .main-grid {
     display: grid !important;
     grid-template-columns: 240px 310px 240px !important; 
     gap: 15px !important;
-    justify-content: center !important;
+    align-items: start !important;
 }
 
-/* 7. 技能与豁免列表对齐 */
-.charsheet-container .stat-row {
-    display: flex !important;
-    align-items: center !important;
-    font-size: 11px !important;
-    margin-bottom: 3px !important;
-}
+/* 技能与豁免列表 */
+.charsheet-container .stat-block { border: 1px solid black; border-radius: 5px; padding: 8px; margin-bottom: 12px; }
+.charsheet-container .stat-block h3 { font-size: 10px; text-align: center; border-bottom: 1px solid #eee; margin: 0 0 5px 0; }
+.charsheet-container .stat-row { display: flex !important; align-items: center !important; font-size: 11px !important; margin-bottom: 2px !important; }
+.charsheet-container .prof-dot { width: 9px; height: 9px; border: 1px solid black; border-radius: 50%; margin-right: 5px; }
+.charsheet-container .prof-dot.checked { background: black; }
+.charsheet-container .stat-bonus { width: 22px; text-align: center; border-bottom: 1px solid black; margin-right: 5px; font-weight: bold; }
 
-.charsheet-container .prof-dot {
-    width: 9px !important;
-    height: 9px !important;
-    border: 1px solid black !important;
-    border-radius: 50% !important;
-    margin-right: 5px !important;
-    flex-shrink: 0 !important;
-}
+/* 战斗与血量 */
+.charsheet-container .combat-header { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
+.charsheet-container .combat-box { border: 2px solid black; border-radius: 8px; text-align: center; height: 75px; display: flex; flex-direction: column; justify-content: center; }
+.charsheet-container .combat-box strong { font-size: 22px; }
+.charsheet-container .hp-box { border: 2px solid black; border-radius: 10px; text-align: center; margin: 10px 0; }
+.charsheet-container .hp-label { font-size: 9px; background: #eee; border-bottom: 1px solid black; }
+.charsheet-container .hp-value { font-size: 32px; font-weight: bold; padding: 5px; }
 
-.charsheet-container .prof-dot.checked {
-    background: black !important;
-}
+/* 文本框区域 */
+.charsheet-container .text-area { border: 1px solid black; border-radius: 5px; margin-bottom: 10px; display: flex; flex-direction: column; }
+.charsheet-container .text-area label { background: #eee; font-size: 9px; font-weight: bold; text-align: center; border-bottom: 1px solid black; }
+.charsheet-container .text-content { padding: 5px; font-size: 12px; min-height: 35px; }
+.charsheet-container .features-box { min-height: 250px; }
 
-.charsheet-container .stat-bonus {
-    width: 22px !important;
-    text-align: center !important;
-    border-bottom: 1px solid black !important;
-    margin-right: 5px !important;
-    font-weight: bold !important;
-}
+/* 背包与金币布局 */
+.charsheet-container .inventory-flex { flex-direction: row !important; min-height: 250px; }
+.charsheet-container .money-column { width: 40px; background: #eee; border-right: 1px solid black; text-align: center; font-size: 9px; padding-top: 10px; font-weight: bold; }
+.charsheet-container .inventory-column { flex: 1; display: flex; flex-direction: column; }
 
-/* 8. 战斗方块 (AC/先攻/速度) */
-.charsheet-container .combat-header {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px !important;
-}
-
-.charsheet-container .combat-box {
-    border: 2px solid black !important;
-    border-radius: 8px !important;
-    text-align: center !important;
-    height: 75px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-}
-
-.charsheet-container .combat-box label { font-size: 9px !important; font-weight: bold !important; }
-.charsheet-container .combat-box strong { font-size: 22px !important; }
-
-/* 9. 文本框区域 (性格/理想等) */
-.charsheet-container .text-area {
-    border: 1px solid black !important;
-    border-radius: 5px !important;
-    margin-bottom: 10px !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-.charsheet-container .text-area label {
-    background: #eee !important;
-    font-size: 9px !important;
-    font-weight: bold !important;
-    text-align: center !important;
-    border-bottom: 1px solid black !important;
-    padding: 2px 0 !important;
-}
-
-.charsheet-container .text-content {
-    padding: 5px !important;
-    font-size: 12px !important;
-    min-height: 30px !important;
-}
-
-/* 10. 清除 Digital Garden 默认干扰样式 */
-.charsheet-container li::before, 
-.charsheet-container .notelink::before {
-    display: none !important;
-    content: none !important;
-}
+/* 彻底清除干扰 */
+.charsheet-container li::before, .charsheet-container .notelink::before, .charsheet-container p { display: none !important; content: none !important; margin: 0 !important; }
