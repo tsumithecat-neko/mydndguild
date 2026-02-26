@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/my-dnd-guild/my-dnd-guild/","tags":["gardenEntry"]}
+{"dg-publish":true,"permalink":"/my-dnd-guild/my-dnd-guild/","title":"费伦郊游日志","tags":["gardenEntry"],"updated":"2026-02-26T18:20:31.005+08:00"}
 ---
 
 <iframe 
