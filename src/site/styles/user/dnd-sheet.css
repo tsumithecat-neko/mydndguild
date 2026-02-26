@@ -1,13 +1,15 @@
-/* 1. 核心修复：拓宽 Digital Garden 的内容容器限制 */
-/* 当页面包含角色卡容器时，强制拉伸父级容器宽度 */
+/* 1. 强制撑开 Digital Garden 的内容容器限制 */
+/* 只有在页面包含角色卡时才生效，不影响其他笔记 */
 body:has(.charsheet-container) .content {
-    max-width: 950px !important; /* 必须大于角色卡的 860px */
-    width: 100% !important;
+    max-width: 900px !important; 
+    width: 95vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
-/* 2. 隔离并保护角色卡样式 */
+/* 2. 角色卡容器：彻底切断外部干扰 */
 .charsheet-container {
-    all: initial; /* 阻断外部继承 */
+    all: initial; 
     display: flex !important;
     justify-content: center !important;
     width: 100% !important;
@@ -18,7 +20,7 @@ body:has(.charsheet-container) .content {
 .charsheet-container .charsheet {
     box-sizing: border-box !important;
     width: 860px !important;
-    min-width: 860px !important; /* 锁定最小宽度，防止中间栏被挤压 */
+    min-width: 860px !important; /* 强制锁定宽度，防止中间栏被挤压 */
     background-color: white !important;
     border: 2px solid #000 !important;
     padding: 20px !important;
@@ -27,16 +29,47 @@ body:has(.charsheet-container) .content {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
 }
 
-/* 3. 严格锁定三栏比例 */
-.charsheet-container .main-grid {
+/* 3. 头部六项网格：锁定高度 */
+.charsheet-container .misc-grid {
     display: grid !important;
-    /* 锁定左右两栏宽度，让中间栏自动填满剩余的 320px 左右空间 */
-    grid-template-columns: 250px 320px 250px !important; 
-    gap: 15px !important;
-    justify-content: center !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    border: 1px solid black !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    margin-bottom: 15px !important;
 }
 
-/* 4. 修复战斗方块边框 */
+.charsheet-container .misc-item {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    border-bottom: 1px solid #ccc !important;
+    height: 35px !important;
+}
+
+/* 4. 属性栏：横向 6 列锁定 */
+.charsheet-container .attr-row-container {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 30px !important;
+}
+
+.charsheet-container .attr-box {
+    border: 1px solid black !important;
+    border-radius: 10px !important;
+    text-align: center !important;
+    background: white !important;
+}
+
+/* 5. 主体三栏：严格锁定像素宽度 (防止挤压) */
+.charsheet-container .main-grid {
+    display: grid !important;
+    grid-template-columns: 250px 310px 250px !important; 
+    gap: 15px !important;
+}
+
+/* 6. 战斗方块修复 */
 .charsheet-container .combat-header {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
@@ -51,31 +84,11 @@ body:has(.charsheet-container) .content {
     flex-direction: column !important;
     justify-content: center !important;
     border-radius: 6px !important;
-    background: white !important;
 }
 
-/* 5. 技能与对齐保护 */
-.charsheet-container .stat-row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    height: 20px !important;
-    font-size: 11px !important;
-}
-
-.charsheet-container .stat-bonus {
-    width: 25px !important;
-    text-align: center !important;
-    border-bottom: 1px solid #999 !important;
-    margin-right: 8px !important;
-    font-weight: bold !important;
-    display: inline-block !important;
-}
-
-/* 6. 清除 Digital Garden 默认列表圆点 */
+/* 7. 彻底清除主题默认的小圆点 */
 .charsheet-container li::before,
-.charsheet-container li::after,
 .charsheet-container .notelink::before {
-    content: none !important;
     display: none !important;
+    content: none !important;
 }
