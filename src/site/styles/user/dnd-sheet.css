@@ -1,71 +1,119 @@
-/* D&D 5E 官方风格 - 底部齐平对齐版 */
+/* D&D 5E 官方风格角色卡 - Digital Garden 适配版 */
+
+/* 1. 外层容器：负责居中和溢出滚动 */
 .charsheet-container {
   width: 100%;
-  overflow-x: auto;
   display: flex;
   justify-content: center;
-  padding: 20px 0;
-  background: #f4f4f4;
+  padding: 10px 0;
+  line-height: 1.2;
+  background-color: transparent; /* 保持与数字花园背景一致 */
 }
 
+/* 2. 角色卡主干 */
 .charsheet {
   box-sizing: border-box;
-  width: 880px;
-  min-width: 880px;
+  width: 100%;
+  max-width: 880px; /* 锁定最大宽度 */
   background-color: white;
   border: 2px solid #000;
   padding: 20px;
-  font-family: "Georgia", serif;
+  font-family: "Georgia", "Times New Roman", serif;
   color: black;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* 顶部网格 */
+/* 3. 顶部六项元数据网格 */
 .misc-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 12px;
   border: 1px solid black;
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 15px;
 }
-.misc-item { display: flex; flex-direction: column-reverse; border-bottom: 1px solid #ccc; font-size: 11px; }
+.misc-item {
+  display: flex;
+  flex-direction: column-reverse;
+  border-bottom: 1px solid #ccc;
+  font-size: 11px;
+}
+.misc-item label { font-size: 10px; font-weight: bold; color: #666; margin-top: 2px; }
 
-/* 属性栏 */
+/* 4. 属性横向排列区域 */
 .attr-row-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 30px;
 }
-.attr-box { border: 1px solid black; border-radius: 10px; text-align: center; padding: 5px; }
-.attr-box label { font-size: 10px; font-weight: bold; display: block; background: #eee; border-bottom: 1px solid black; margin: -5px -5px 5px -5px; border-radius: 8px 8px 0 0; }
-.attr-box .score { font-size: 26px; font-weight: bold; padding: 5px 0; }
-.attr-box .modifier { border: 1px solid black; border-radius: 12px; width: 38px; margin: 0 auto -16px auto; background: white; font-size: 15px; font-weight: bold; }
-
-/* 主体布局：使用 flex 确保等高 */
-.main-grid {
-  display: flex;
-  gap: 20px;
-  align-items: stretch; /* 关键：强制三栏高度相等 */
+.attr-box {
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px;
+  background: white;
+  position: relative;
+}
+.attr-box label { 
+  font-size: 10px; font-weight: bold; display: block; 
+  background: #eee; border-bottom: 1px solid black; 
+  margin: -5px -5px 5px -5px; border-radius: 8px 8px 0 0; 
+}
+.attr-box .score { font-size: 24px; font-weight: bold; padding: 5px 0; }
+.attr-box .modifier { 
+  border: 1px solid black; border-radius: 12px; width: 36px; 
+  margin: 0 auto -16px auto; background: white; 
+  font-size: 14px; font-weight: bold;
 }
 
-.col-sidebar { width: 260px; display: flex; flex-direction: column; }
-.col-main { flex-grow: 1; display: flex; flex-direction: column; }
+/* 5. 主体三栏对齐布局 */
+.main-grid {
+  display: flex; /* 使用 flex 实现等高齐平 */
+  gap: 20px;
+  align-items: stretch;
+}
+.col-sidebar { width: 250px; flex-shrink: 0; display: flex; flex-direction: column; }
+.col-main { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; }
 
-/* 技能与对齐样式 */
+/* 6. 战斗方块 (AC/先攻/速度) */
+.combat-header { display: flex; justify-content: space-around; gap: 8px; margin-bottom: 12px; }
+.combat-box {
+  border: 2px solid black !important;
+  background: white;
+  text-align: center;
+  flex: 1;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+}
+.combat-box label { font-size: 9px; font-weight: bold; }
+
+/* 7. 技能与豁免行样式 */
 .stat-row { display: flex; align-items: center; height: 20px; font-size: 11px; }
-.prof-dot { width: 10px; height: 10px; border: 1px solid black; border-radius: 50%; margin-right: 6px; flex-shrink: 0; }
+.prof-dot { width: 9px; height: 9px; border: 1px solid black; border-radius: 50%; margin-right: 6px; flex-shrink: 0; }
 .prof-dot.checked { background: black !important; }
-.stat-bonus { width: 26px; text-align: center; border-bottom: 1px solid #999; margin-right: 8px; font-weight: bold; }
+.stat-bonus { width: 25px; text-align: center; border-bottom: 1px solid #999; margin-right: 6px; font-weight: bold; }
 
-/* 战斗方块 */
-.combat-header { display: flex; justify-content: space-around; gap: 10px; margin-bottom: 12px; }
-.combat-box { border: 2px solid black !important; background: white; text-align: center; flex: 1; height: 85px; display: flex; flex-direction: column; justify-content: center; border-radius: 8px; }
-
-/* 自动拉伸的文本区域 */
+/* 8. 文本块与自动拉伸 */
 .text-area { border: 1px solid black; margin-top: 10px; display: flex; flex-direction: column; }
-.flex-fill { flex-grow: 1; } /* 关键：填充剩余空间 */
-
+.flex-fill { flex-grow: 1; } /* 关键：强制拉伸到底部对齐 */
 .text-area label { background: #eee; font-size: 9px; font-weight: bold; display: block; text-align: center; padding: 2px; border-bottom: 1px solid black; }
-.text-content { padding: 6px; font-size: 12px; line-height: 1.4; flex-grow: 1; }
+.text-content { padding: 6px; font-size: 11px; line-height: 1.4; flex-grow: 1; }
+
+/* 9. 背包与金币区域 */
+.equipment-box { display: flex; flex-grow: 1; border: 1px solid black; margin-top: 10px; }
+.money-column { width: 42px; background: #eee; border-right: 1px solid black; padding: 5px 2px; flex-shrink: 0; }
+.coin { font-size: 9px; text-align: center; border: 1px solid #999; background: white; margin-bottom: 3px; border-radius: 3px; }
+
+/* 10. 移动端适配 (窄屏时转为单栏) */
+@media (max-width: 800px) {
+  .main-grid { flex-direction: column; }
+  .col-sidebar, .col-main { width: 100%; }
+  .attr-row-container { grid-template-columns: repeat(3, 1fr); }
+  .misc-grid { grid-template-columns: 1fr 1fr; }
+  .charsheet { min-width: unset; padding: 10px; }
+}
